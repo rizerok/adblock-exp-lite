@@ -30,7 +30,7 @@
 ```
 
 ## Todos
-- [ ] log
+- [x] log
 - [ ] webpack
 - [ ] typescript
 - [ ] tests

@@ -1,5 +1,8 @@
 import * as store from './src/store.js';
-console.log('Options');
+import { Log } from './src/log.js';
+
+const log = new Log('options');
+log.log('Options');
 
 const $sitesTextArea = document.querySelector('#removeFixedOverlaysTextarea');
 const $removeFixedOverlaysCheckbox = document.querySelector('#removeFixedOverlaysCheckbox');
@@ -16,14 +19,14 @@ const main = async () => {
 main();
 
 $acceptButton.addEventListener('click', async () => {
-  console.log('$acceptButton');
+  log.log('$acceptButton');
   const $sitesTextArea = document.querySelector('#removeFixedOverlaysTextarea');
   const $removeFixedOverlaysCheckbox = document.querySelector('#removeFixedOverlaysCheckbox');
 
   const sitesForAccept = $sitesTextArea.value.split(/\s/g).filter(site => site);
   const alwaysAccept = $removeFixedOverlaysCheckbox.checked;
-  console.log('sitesForAccept', sitesForAccept);
-  console.log('alwaysAccept', alwaysAccept);
+  log.log('sitesForAccept', sitesForAccept);
+  log.log('alwaysAccept', alwaysAccept);
   await store.setAcceptedSites(sitesForAccept);
   await store.setEnabled(alwaysAccept);
 });

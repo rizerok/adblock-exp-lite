@@ -8,5 +8,3 @@ export function throttle (fn, time) {
     }
   }
 }
-
-export const logCloneObject = (obj) => JSON.parse(JSON.stringify(obj));

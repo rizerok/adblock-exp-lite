@@ -1,3 +1,6 @@
+import { Log } from './log.js';
+const log = new Log('store');
+
 // const store = {
 //   activeTab: null,
 //   intervalId,
@@ -7,15 +10,15 @@
 
 const main = async () => {
   const setResult = await chrome.storage.sync.set({ activeTab: null });
-  console.log('setResult', setResult);
+  log.log('setResult', setResult);
   const getResult = await chrome.storage.sync.get('activeTab');
-  console.log('getResult', getResult);
+  log.log('getResult', getResult);
 };
 
 main();
 
 export const setCurrentTab = async (tab) => {
-  console.log('setCurrentTab', tab);
+  log.log('setCurrentTab', tab);
   await chrome.storage.sync.set({ activeTab: {
       id: tab.id,
       title: tab.title,
