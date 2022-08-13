@@ -1,0 +1,23 @@
+{
+  "name": "adblock-exp-lite",
+  "version": "0.0.1",
+  "description": "Extension for remove fixed overlays and cancel requests",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rizerok/adblock-exp-lite.git"
+  },
+  "author": "Alex",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rizerok/adblock-exp-lite/issues"
+  },
+  "homepage": "https://github.com/rizerok/adblock-exp-lite#readme",
+  "devDependencies": {
+    "@types/chrome": "^0.0.193",
+    "typescript": "^4.7.4"
+  }
+}

@@ -6,3 +6,6 @@
 
 # MacOS specific files
 .DS_STORE
+
+# dist
+/dist

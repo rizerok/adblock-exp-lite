@@ -1,4 +1,4 @@
-export function throttle (fn, time) {
+export function throttle (fn: () => any, time: number) {
   let canFunctionExecute = true;
   return function () {
     if (canFunctionExecute) {

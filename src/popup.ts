@@ -1,4 +1,4 @@
-import * as core from './src/core.js';
+import * as core from './modules/core.js';
 // popup logic
 const $button = document.getElementById('removeAllFixedOverlays');
 
@@ -8,7 +8,7 @@ $button.addEventListener("click", async () => {
   // execute script
   chrome.scripting.executeScript({
     target: { tabId: tab.id },
-    function: core.removeAllFixedOverlays,
+    func: core.removeAllFixedOverlays,
   });
 });
 

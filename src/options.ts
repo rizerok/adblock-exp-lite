@@ -1,11 +1,11 @@
-import * as store from './src/store.js';
-import { Log } from './src/log.js';
+import * as store from './modules/store.js';
+import { Log } from './modules/log.js';
 
 const log = new Log('options');
 log.log('Options');
 
-const $sitesTextArea = document.querySelector('#removeFixedOverlaysTextarea');
-const $removeFixedOverlaysCheckbox = document.querySelector('#removeFixedOverlaysCheckbox');
+const $sitesTextArea = document.querySelector<HTMLInputElement>('#removeFixedOverlaysTextarea');
+const $removeFixedOverlaysCheckbox = document.querySelector<HTMLInputElement>('#removeFixedOverlaysCheckbox');
 const $acceptButton = document.querySelector('#accept');
 
 const main = async () => {
@@ -20,8 +20,8 @@ main();
 
 $acceptButton.addEventListener('click', async () => {
   log.log('$acceptButton');
-  const $sitesTextArea = document.querySelector('#removeFixedOverlaysTextarea');
-  const $removeFixedOverlaysCheckbox = document.querySelector('#removeFixedOverlaysCheckbox');
+  const $sitesTextArea = document.querySelector<HTMLInputElement>('#removeFixedOverlaysTextarea');
+  const $removeFixedOverlaysCheckbox = document.querySelector<HTMLInputElement>('#removeFixedOverlaysCheckbox');
 
   const sitesForAccept = $sitesTextArea.value.split(/\s/g).filter(site => site);
   const alwaysAccept = $removeFixedOverlaysCheckbox.checked;

@@ -3,6 +3,7 @@
 ```json
 {
   "name": "adblock-exp-lite",
+  "private": true,
   "description": "Extension for remove fixed overlays and cancel requests",
   "version": "1.0",
   "manifest_version": 3,
@@ -31,9 +32,14 @@
 
 ## Todos
 - [x] log
-- [ ] webpack
-- [ ] typescript
+- [ ] ~~webpack~~ build script
+  - [ ] run tsc 
+  - [ ] copy html, css and manifest
+  - [ ] dev and prod mode (webpack definePlugin, minification)
+- [x] typescript
+- [ ] strict typescript
 - [ ] tests
 - [ ] bug with null
 - [ ] request handling
+- [ ] iframe cleaner
 

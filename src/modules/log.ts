@@ -1,6 +1,9 @@
 const globalLogEnabled = true;
 
 export class Log {
+  submes?: string;
+  enabled: boolean;
+
   constructor (submes) {
     this.submes = submes;
     this.enabled = true;

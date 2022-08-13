@@ -1,8 +1,9 @@
-import * as core from './src/core.js';
-import * as store from './src/store.js';
-import * as utils from './src/utils.js';
-import * as config from './src/config.js';
-import { Log } from './src/log.js';
+import * as core from './modules/core.js';
+import * as store from './modules/store.js';
+import * as utils from './modules/utils.js';
+import * as config from './modules/config.js';
+import * as converters from './modules/converters.js';
+import { Log } from './modules/log.js';
 
 const log = new Log('background-sw');
 
@@ -10,7 +11,7 @@ log.log('chrome', chrome);
 
 chrome.runtime.onInstalled.addListener(async () => {
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-  await store.setCurrentTab(tab);
+  await store.setCurrentTab(converters.tabToStoredTab(tab));
 });
 
 const executeScriptOnActiveTab = (tabId) => {
@@ -19,7 +20,7 @@ const executeScriptOnActiveTab = (tabId) => {
     log.log('inside setInterval');
     chrome.scripting.executeScript({
       target: { tabId },
-      function: core.removeAllFixedOverlays,
+      func: core.removeAllFixedOverlays,
     });
   }, config.executionScriptIntervalTime);
   store.setIntervalId(intervalId);
@@ -45,20 +46,21 @@ const checkAcceptedSites = async ({ url, pendingUrl }) => {
 
 const updateTabLifecycle = async () => {
   log.log('updateTabLifecycle');
-  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-  const storeActiveTab = await store.getCurrentTab();
-  log.logCloneObject('storeActiveTab', storeActiveTab);
-  log.logCloneObject('enabled', await store.getEnabled());
-  // // old tab
-  if (checkChromeDomains(storeActiveTab) && await checkAcceptedSites(storeActiveTab)) {
+  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  const newStoredTab = converters.tabToStoredTab(tab);
+  const oldStoredTab = await store.getCurrentTab();
+  log.logCloneObject('oldStoredTab', oldStoredTab);
+  // old tab
+  if (checkChromeDomains(oldStoredTab) && await checkAcceptedSites(oldStoredTab)) {
     await executeScriptOnDeActiveTab();
   }
-  // // new tab
-  if (checkChromeDomains(tab) && await checkAcceptedSites(tab)) {
-    await executeScriptOnActiveTab(tab.id);
+  log.log('tab', tab);
+  // new tab [here sometimes we get a bug, why tab is null?]
+  if (checkChromeDomains(newStoredTab) && await checkAcceptedSites(newStoredTab)) {
+    await executeScriptOnActiveTab(newStoredTab.id);
   }
   log.logCloneObject(tab);
-  await store.setCurrentTab(tab);
+  await store.setCurrentTab(newStoredTab);
 }
 
 // onUpdatedTab execute more than one time
