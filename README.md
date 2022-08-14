@@ -32,12 +32,12 @@
 
 ## Todos
 - [x] log
-- [ ] ~~webpack~~ build script
+- [x] ~~webpack~~ build script
   - [x] run tsc 
   - [x] copy html, css and manifest
   - [x] dev and prod mode
   - [x] definePlugin (babel)
-  - [ ] minification (babel)
+  - [x] minification (babel)
 - [x] typescript
 - [ ] strict typescript
 - [ ] tests
