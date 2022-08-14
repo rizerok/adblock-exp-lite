@@ -7,21 +7,29 @@ log.log('Options');
 const $sitesTextArea = document.querySelector<HTMLInputElement>('#removeFixedOverlaysTextarea');
 const $removeFixedOverlaysCheckbox = document.querySelector<HTMLInputElement>('#removeFixedOverlaysCheckbox');
 const $acceptButton = document.querySelector('#accept');
+if (!$sitesTextArea) {
+  throw Error('$sitesTextArea must be exist');
+}
+if (!$removeFixedOverlaysCheckbox) {
+  throw Error('$removeFixedOverlaysCheckbox must be exist');
+}
+if (!$acceptButton) {
+  throw Error('$acceptButton must be exist');
+}
+
 
 const main = async () => {
   const sitesForAccept = await store.getAcceptedSites();
   const alwaysAccept = await store.getEnabled();
 
   $sitesTextArea.value = sitesForAccept ? sitesForAccept.join('\n') : '';
-  $removeFixedOverlaysCheckbox.checked = !!alwaysAccept;
+  $removeFixedOverlaysCheckbox.checked = alwaysAccept;
 };
 
 main();
 
 $acceptButton.addEventListener('click', async () => {
   log.log('$acceptButton');
-  const $sitesTextArea = document.querySelector<HTMLInputElement>('#removeFixedOverlaysTextarea');
-  const $removeFixedOverlaysCheckbox = document.querySelector<HTMLInputElement>('#removeFixedOverlaysCheckbox');
 
   const sitesForAccept = $sitesTextArea.value.split(/\s/g).filter(site => site);
   const alwaysAccept = $removeFixedOverlaysCheckbox.checked;

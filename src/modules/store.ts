@@ -15,15 +15,6 @@ interface Store {
   enabled: boolean;
 }
 
-// const main = async () => {
-//   const setResult = await chrome.storage.sync.set({ activeTab: null });
-//   log.log('setResult', setResult);
-//   const getResult = await chrome.storage.sync.get('activeTab');
-//   log.log('getResult', getResult);
-// };
-//
-// main();
-
 chrome.storage.onChanged.addListener((changes) => {
   log.log('changes', changes);
 });
@@ -42,4 +33,4 @@ export const setAcceptedSites = (acceptedSites: Store['acceptedSites']) => chrom
 export const getAcceptedSites = async (): Promise<Store['acceptedSites']> => (await chrome.storage.sync.get('acceptedSites')).acceptedSites;
 
 export const setEnabled = (enabled: Store['enabled']) => chrome.storage.sync.set({ enabled });
-export const getEnabled = async (): Promise<Store['enabled']> => (await chrome.storage.sync.get('enabled')).enabled;
+export const getEnabled = async (): Promise<Store['enabled']> => (await chrome.storage.sync.get('enabled')).enabled!!;

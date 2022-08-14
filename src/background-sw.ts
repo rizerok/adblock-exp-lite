@@ -14,7 +14,7 @@ chrome.runtime.onInstalled.addListener(async () => {
   await store.setCurrentTab(converters.tabToStoredTab(tab));
 });
 
-const executeScriptOnActiveTab = (tabId) => {
+const executeScriptOnActiveTab = (tabId: number) => {
   log.log('executeScriptOnActiveTab');
   const intervalId = setInterval(() => {
     log.log('inside setInterval');
@@ -33,15 +33,11 @@ const executeScriptOnDeActiveTab = async () => {
   clearInterval(intervalId);
 };
 
-const checkChromeDomains = ({ url, pendingUrl }) => {
-  const checkedUrl = url || pendingUrl;
-  return config.chromeDomains.every(chd => checkedUrl.indexOf(chd) === -1);
-};
+const checkChromeDomains = (url: string) => config.chromeDomains.every(chd => url.indexOf(chd) === -1);
 
-const checkAcceptedSites = async ({ url, pendingUrl }) => {
-  const checkedUrl = url || pendingUrl;
+const checkAcceptedSites = async (url: string) => {
   const acceptedSites = await store.getAcceptedSites();
-  return acceptedSites.some(sitesUrl => checkedUrl.includes(sitesUrl));
+  return acceptedSites.some(sitesUrl => url.includes(sitesUrl));
 };
 
 const updateTabLifecycle = async () => {
@@ -53,11 +49,11 @@ const updateTabLifecycle = async () => {
   const oldStoredTab = await store.getCurrentTab();
   log.logCloneObject('oldStoredTab', oldStoredTab);
   // old tab
-  if (checkChromeDomains(oldStoredTab) && await checkAcceptedSites(oldStoredTab)) {
+  if (checkChromeDomains(oldStoredTab.url) && await checkAcceptedSites(oldStoredTab.url)) {
     await executeScriptOnDeActiveTab();
   }
   log.log('tab', tab);
-  if (checkChromeDomains(newStoredTab) && await checkAcceptedSites(newStoredTab)) {
+  if (checkChromeDomains(newStoredTab.url) && await checkAcceptedSites(newStoredTab.url)) {
     await executeScriptOnActiveTab(newStoredTab.id);
   }
   log.logCloneObject(tab);

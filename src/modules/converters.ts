@@ -4,6 +4,10 @@ import { Log } from './log.js';
 const log = new Log('converters');
 
 export const tabToStoredTab = (tab: chrome.tabs.Tab): StoredTab  => {
+  if (!tab) {
+    throw Error('tab must be exist');
+  }
+
   const { id, title, url, pendingUrl = null } = tab;
 
   if (id === undefined) {

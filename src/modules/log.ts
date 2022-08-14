@@ -4,12 +4,12 @@ export class Log {
   submes?: string;
   enabled: boolean;
 
-  constructor (submes) {
+  constructor (submes: string) {
     this.submes = submes;
     this.enabled = true;
   }
 
-  log(...args) {
+  log(...args: any[]) {
     if (this.enabled && globalLogEnabled) {
       if (this.submes) {
         console.log(`[${this.submes}]: `, ...args);
@@ -19,7 +19,7 @@ export class Log {
     }
   }
 
-  logCloneObject(...args) {
+  logCloneObject(...args: any[]) {
     const clonedArgs = args.map(a => JSON.parse(JSON.stringify(a)));
     this.log(...clonedArgs)
   }

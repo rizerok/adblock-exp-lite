@@ -39,7 +39,7 @@
   - [x] definePlugin (babel)
   - [x] minification (babel)
 - [x] typescript
-- [ ] strict typescript
+- [x] strict typescript
 - [ ] tests
 - [ ] bug with null
 - [ ] request handling
