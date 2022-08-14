@@ -33,8 +33,8 @@
 ## Todos
 - [x] log
 - [ ] ~~webpack~~ build script
-  - [ ] run tsc 
-  - [ ] copy html, css and manifest
+  - [x] run tsc 
+  - [x] copy html, css and manifest
   - [ ] dev and prod mode (webpack definePlugin, minification)
 - [x] typescript
 - [ ] strict typescript
@@ -42,4 +42,3 @@
 - [ ] bug with null
 - [ ] request handling
 - [ ] iframe cleaner
-

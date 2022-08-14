@@ -47,6 +47,8 @@ const checkAcceptedSites = async ({ url, pendingUrl }) => {
 const updateTabLifecycle = async () => {
   log.log('updateTabLifecycle');
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  log.log('tab', tab);
+  // new tab [here sometimes we get a bug, why tab is undefined?]
   const newStoredTab = converters.tabToStoredTab(tab);
   const oldStoredTab = await store.getCurrentTab();
   log.logCloneObject('oldStoredTab', oldStoredTab);
@@ -55,7 +57,6 @@ const updateTabLifecycle = async () => {
     await executeScriptOnDeActiveTab();
   }
   log.log('tab', tab);
-  // new tab [here sometimes we get a bug, why tab is null?]
   if (checkChromeDomains(newStoredTab) && await checkAcceptedSites(newStoredTab)) {
     await executeScriptOnActiveTab(newStoredTab.id);
   }

@@ -1,4 +1,4 @@
-const globalLogEnabled = true;
+import { globalLogEnabled } from './config.js'
 
 export class Log {
   submes?: string;
