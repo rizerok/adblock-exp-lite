@@ -6,4 +6,5 @@
   "include": [
     "./src"
   ],
+  "files": ["./src/declarations.d.ts"]
 }

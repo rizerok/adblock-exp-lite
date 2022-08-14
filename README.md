@@ -35,7 +35,9 @@
 - [ ] ~~webpack~~ build script
   - [x] run tsc 
   - [x] copy html, css and manifest
-  - [ ] dev and prod mode (webpack definePlugin, minification)
+  - [x] dev and prod mode
+  - [x] definePlugin (babel)
+  - [ ] minification (babel)
 - [x] typescript
 - [ ] strict typescript
 - [ ] tests
