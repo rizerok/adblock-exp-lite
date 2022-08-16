@@ -6,4 +6,4 @@ export const chromeDomains = [
   'chrome-extension://'
 ];
 
-export const globalLogEnabled = NODE_ENV === 'development';
+export const globalLogEnabled = process.env.NODE_ENV === 'development';

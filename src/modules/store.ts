@@ -10,7 +10,7 @@ export interface StoredTab {
 
 interface Store {
   activeTab: StoredTab;
-  intervalId: number;
+  intervalId: ReturnType<typeof setInterval>;
   acceptedSites: string[];
   enabled: boolean;
 }

@@ -41,6 +41,13 @@
 - [x] typescript
 - [x] strict typescript
 - [ ] tests
+  - [x] install packages
+  - [x] simple test
+  - [ ] test with imports
+  - [ ] exclude test files from build
+  - [ ] test directories
+  - [ ] other tests
 - [ ] bug with null
 - [ ] request handling
 - [ ] iframe cleaner
+- [ ] e2e puppeteer tests
