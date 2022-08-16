@@ -1,9 +1,9 @@
-export function throttle (fn: () => any, time: number) {
+export function throttle (fn: (...args: any) => any, time: number) {
   let canFunctionExecute = true;
-  return function () {
+  return function (...args: any) {
     if (canFunctionExecute) {
       canFunctionExecute = false;
-      fn();
+      fn(...args);
       setTimeout(() => canFunctionExecute = true, time);
     }
   }

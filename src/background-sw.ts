@@ -1,9 +1,9 @@
-import * as core from './modules/core.js';
-import * as store from './modules/store.js';
-import * as utils from './modules/utils.js';
-import * as config from './modules/config.js';
-import * as converters from './modules/converters.js';
-import { Log } from './modules/log.js';
+import * as core from './modules/core';
+import * as store from './modules/store';
+import * as utils from './modules/utils';
+import * as config from './modules/config';
+import * as converters from './modules/converters';
+import { Log } from './modules/log';
 
 const log = new Log('background-sw');
 

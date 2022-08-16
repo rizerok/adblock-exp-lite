@@ -1,5 +1,5 @@
-import * as store from './modules/store.js';
-import { Log } from './modules/log.js';
+import * as store from './modules/store';
+import { Log } from './modules/log';
 
 const log = new Log('options');
 log.log('Options');

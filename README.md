@@ -40,14 +40,14 @@
   - [x] minification (babel)
 - [x] typescript
 - [x] strict typescript
-- [ ] tests
+- [x] tests
   - [x] install packages
   - [x] simple test
-  - [ ] test with imports
-  - [ ] exclude test files from build
-  - [ ] test directories
-  - [ ] other tests
+  - [x] test with imports
+  - [x] exclude test files from build
+  - [x] test directories
+  - [x] other tests
 - [ ] bug with null
+- [ ] e2e puppeteer tests
 - [ ] request handling
 - [ ] iframe cleaner
-- [ ] e2e puppeteer tests

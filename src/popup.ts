@@ -1,4 +1,4 @@
-import * as core from './modules/core.js';
+import * as core from './modules/core';
 // popup logic
 const $button = document.getElementById('removeAllFixedOverlays');
 

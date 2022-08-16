@@ -1,16 +1,16 @@
-import { globalLogEnabled } from './config.js'
+import { globalLogEnabled } from './config'
 
 export class Log {
   submes?: string;
   enabled: boolean;
 
-  constructor (submes: string) {
+  constructor (submes?: string) {
     this.submes = submes;
-    this.enabled = true;
+    this.enabled = globalLogEnabled;
   }
 
   log(...args: any[]) {
-    if (this.enabled && globalLogEnabled) {
+    if (this.enabled) {
       if (this.submes) {
         console.log(`[${this.submes}]: `, ...args);
       } else {

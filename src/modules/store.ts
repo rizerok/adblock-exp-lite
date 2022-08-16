@@ -1,4 +1,4 @@
-import { Log } from './log.js';
+import { Log } from './log';
 const log = new Log('store');
 
 export interface StoredTab {

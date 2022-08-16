@@ -9,5 +9,9 @@
   "include": [
     "./src"
   ],
+  "exclude": [
+    "src/**/*.test.ts",
+    "**/__tests__/*"
+  ],
   "files": ["./src/declarations.d.ts"]
 }

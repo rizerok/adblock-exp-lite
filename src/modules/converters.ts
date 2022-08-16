@@ -1,9 +1,9 @@
 import type { StoredTab } from './store'
-import { Log } from './log.js';
+import { Log } from './log';
 
 const log = new Log('converters');
 
-export const tabToStoredTab = (tab: chrome.tabs.Tab): StoredTab  => {
+export const tabToStoredTab = (tab: chrome.tabs.Tab | null): StoredTab  => {
   if (!tab) {
     throw Error('tab must be exist');
   }

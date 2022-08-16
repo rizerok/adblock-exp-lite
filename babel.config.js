@@ -6,7 +6,8 @@ module.exports = function (api) {
     plugins: [
       ['transform-define', {
         'process.env.NODE_ENV': process.env.NODE_ENV,
-      }]
+      }],
+      "babel-plugin-add-import-extension"
     ]
   };
 };
