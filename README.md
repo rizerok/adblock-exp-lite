@@ -47,7 +47,7 @@
   - [x] exclude test files from build
   - [x] test directories
   - [x] other tests
-- [ ] bug with null
+- [x] bug with null
 - [ ] e2e puppeteer tests
 - [ ] request handling
 - [ ] iframe cleaner

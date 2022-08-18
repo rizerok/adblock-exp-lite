@@ -44,20 +44,22 @@ const updateTabLifecycle = async () => {
   log.log('updateTabLifecycle');
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   log.log('tab', tab);
-  // new tab [here sometimes we get a bug, why tab is undefined?]
-  const newStoredTab = converters.tabToStoredTab(tab);
-  const oldStoredTab = await store.getCurrentTab();
-  log.logCloneObject('oldStoredTab', oldStoredTab);
-  // old tab
-  if (checkChromeDomains(oldStoredTab.url) && await checkAcceptedSites(oldStoredTab.url)) {
-    await executeScriptOnDeActiveTab();
+  // new tab [here sometimes we get a null, why tab is null?], just continue
+  if (tab !== null) {
+    const newStoredTab = converters.tabToStoredTab(tab);
+    const oldStoredTab = await store.getCurrentTab();
+    log.logCloneObject('oldStoredTab', oldStoredTab);
+    // old tab
+    if (checkChromeDomains(oldStoredTab.url) && await checkAcceptedSites(oldStoredTab.url)) {
+      await executeScriptOnDeActiveTab();
+    }
+    log.log('tab', tab);
+    if (checkChromeDomains(newStoredTab.url) && await checkAcceptedSites(newStoredTab.url)) {
+      await executeScriptOnActiveTab(newStoredTab.id);
+    }
+    log.logCloneObject(tab);
+    await store.setCurrentTab(newStoredTab);
   }
-  log.log('tab', tab);
-  if (checkChromeDomains(newStoredTab.url) && await checkAcceptedSites(newStoredTab.url)) {
-    await executeScriptOnActiveTab(newStoredTab.id);
-  }
-  log.logCloneObject(tab);
-  await store.setCurrentTab(newStoredTab);
 }
 
 // onUpdatedTab execute more than one time
