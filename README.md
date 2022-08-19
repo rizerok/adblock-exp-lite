@@ -49,5 +49,16 @@
   - [x] other tests
 - [x] bug with null
 - [ ] e2e puppeteer tests
+  - [x] integrate with jest
+  - [x] simple test (init)
+  - [x] other tests (remove overlay)
+    - [x] ~~remove overlay by button~~ (puppeteer cannot get access to extension popup)
+    - [x] remove overlay if options enable and url is suitable
+    - [x] do not remove overlay if options disable
+    - [x] do not remove overlay if url is not suitable
+    - [x] check removing new overlay
+    - [x] check removing on new tab
+  - [ ] split unit and e2e tests
+  - [ ] maybe add run lifecycle on onCreated event? 
 - [ ] request handling
 - [ ] iframe cleaner

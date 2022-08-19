@@ -19,7 +19,8 @@
     "tabs"
   ],
   "host_permissions": [
-    "*://*/*"
+    "*://*/*",
+    "file://*/*"
   ],
   "options_page": "options.html"
 }
