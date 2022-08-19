@@ -160,11 +160,9 @@ describe('remove overlay', () => {
 
     // create tab2
     const page2 = await browser.newPage();
+    // wait when new tab open (throttle in extension)
+    await (new Promise((res) => setTimeout(res, 1000)));
     await page2.goto(`file://${__dirname}/example-html/${HTML_FILE}`, { waitUntil: 'load' });
-    await (new Promise((res) => setTimeout(res, 1000)));
-    await page.bringToFront();
-    await (new Promise((res) => setTimeout(res, 1000)));
-    await page2.bringToFront();
     // wait and check overlays deleting on tab2
     await page2.waitForSelector('[style*="fixed"]', { hidden: true });
     expect(await page2.$('[style*="fixed"]')).toBe(null);

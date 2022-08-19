@@ -59,6 +59,6 @@
     - [x] check removing new overlay
     - [x] check removing on new tab
   - [x] split unit and e2e tests
-  - [ ] maybe add run lifecycle on onCreated event? 
+  - [x] maybe add run lifecycle on onCreated event? (all ok, just add delay in test)
 - [ ] request handling
 - [ ] iframe cleaner
