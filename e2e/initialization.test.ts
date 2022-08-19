@@ -1,6 +1,7 @@
 import { bootstrap, EXTENSION_ID } from './bootstrap';
 
 describe('Initialization', () => {
+  jest.setTimeout(20000);
   test('extension should be loaded', async () => {
     const { browser, page } = await bootstrap();
     await page.goto('chrome://extensions/', { waitUntil: 'load' });

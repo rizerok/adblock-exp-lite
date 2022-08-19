@@ -31,7 +31,7 @@ describe('remove overlay', () => {
     await optionsPage.click('#removeFixedOverlaysCheckbox');
     await optionsPage.click('#accept');
 
-    await (new Promise((res) => setTimeout(res, 500)));
+    await (new Promise((res) => setTimeout(res, 1000)));
     await page.bringToFront();
 
     await page.waitForSelector('[style*="fixed"]', { hidden: true });
@@ -54,7 +54,7 @@ describe('remove overlay', () => {
 
     await optionsPage.click('#accept');
 
-    await (new Promise((res) => setTimeout(res, 500)));
+    await (new Promise((res) => setTimeout(res, 1000)));
     await page.bringToFront();
 
     await (new Promise((res) => setTimeout(res, 3000)));

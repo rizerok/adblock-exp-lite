@@ -58,7 +58,7 @@
     - [x] do not remove overlay if url is not suitable
     - [x] check removing new overlay
     - [x] check removing on new tab
-  - [ ] split unit and e2e tests
+  - [x] split unit and e2e tests
   - [ ] maybe add run lifecycle on onCreated event? 
 - [ ] request handling
 - [ ] iframe cleaner
