@@ -60,5 +60,19 @@
     - [x] check removing on new tab
   - [x] split unit and e2e tests
   - [x] maybe add run lifecycle on onCreated event? (all ok, just add delay in test)
-- [ ] request handling
+- [ ] request canceling
+  - [x] options ui (all controls)
+  - [ ] add new store and update
+    - [x] get requests
+    - [ ] set requests on "accept" button
+  - [ ] add new script
+  - [ ] add script in lifecycle
+  - [ ] tests
+  - [ ] e2e
 - [ ] iframe cleaner
+  - [ ] options ui
+  - [ ] add new store and update
+  - [ ] add new script
+  - [ ] add script in lifecycle
+  - [ ] tests
+  - [ ] e2e

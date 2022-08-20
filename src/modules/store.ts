@@ -8,11 +8,19 @@ export interface StoredTab {
   pendingUrl: string | null;
 }
 
+export interface CanceledRequest {
+  id: string;
+  site: string;
+  reqs: string[];
+  enable: boolean;
+}
+
 interface Store {
   activeTab: StoredTab;
   intervalId: ReturnType<typeof setInterval>;
   acceptedSites: string[];
   enabled: boolean;
+  canceledRequests: CanceledRequest[];
 }
 
 chrome.storage.onChanged.addListener((changes) => {
@@ -34,3 +42,20 @@ export const getAcceptedSites = async (): Promise<Store['acceptedSites']> => (aw
 
 export const setEnabled = (enabled: Store['enabled']) => chrome.storage.sync.set({ enabled });
 export const getEnabled = async (): Promise<Store['enabled']> => (await chrome.storage.sync.get('enabled')).enabled!!;
+
+export const setCanceledRequests = async (newCanceledRequest: Store['canceledRequests']) => {
+  const canceledRequests = (await chrome.storage.sync.get('canceledRequests')).canceledRequests;
+  if (canceledRequests) {
+    canceledRequests.push(newCanceledRequest);
+    await chrome.storage.sync.set({ canceledRequests });
+  } else {
+    await chrome.storage.sync.set({ canceledRequests: [newCanceledRequest] });
+  }
+}
+export const getCanceledRequests = async (): Promise<Store['canceledRequests']> => {
+  const canceledRequests = (await chrome.storage.sync.get('canceledRequests')).canceledRequests;
+  if (!canceledRequests) {
+    return [];
+  }
+  return canceledRequests;
+};

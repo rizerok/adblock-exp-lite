@@ -6,22 +6,54 @@
     <link rel="stylesheet" href="options.css">
 </head>
 <body>
-<p>Options</p>
-<div class="action">
-    <p class="actionTitle">Remove Fixed Overlays</p>
-    <div class="actionBlock">
-        <p class="actionBlockTitle">Sites, (split space symbols)</p>
-        <textarea id="removeFixedOverlaysTextarea">
-
-        </textarea>
+<h1>Options</h1>
+<div>
+    <div class="action-row">
+        <div class="action">
+            <h2 class="actionTitle">Remove Fixed Overlays</h2>
+            <div class="actionBlock">
+                <p class="actionBlockTitle">Sites, (split space symbols)</p>
+                <textarea id="removeFixedOverlaysTextarea"></textarea>
+            </div>
+            <div class="actionBlock">
+                <label for="removeFixedOverlaysCheckbox">Always</label>
+                <input type="checkbox" id="removeFixedOverlaysCheckbox">
+            </div>
+        </div>
     </div>
-    <div class="actionBlock">
-        <label for="removeFixedOverlaysCheckbox">Always</label>
-        <input type="checkbox" id="removeFixedOverlaysCheckbox">
+    <div class="action-row" id="cancelRequest">
+        <div class="action">
+            <h2 class="actionTitle">Request canceling</h2>
+            <div class="action-group">
+                <!-- addButton -->
+                <div class="actionBlock">
+                    <button id="canceledRequestsAddButton">Add Canceling</button>
+                </div>
+            </div>
+<!--            <div class="action-group">-->
+<!--                &lt;!&ndash; canceledSitesUrl &ndash;&gt;-->
+<!--                <div class="actionBlock">-->
+<!--                    <p class="actionBlockTitle">site url</p>-->
+<!--                    <input class="canceledSitesUrl">-->
+<!--                </div>-->
+<!--                &lt;!&ndash; canceledRequestsUrls &ndash;&gt;-->
+<!--                <div class="actionBlock">-->
+<!--                    <p class="actionBlockTitle">canceled requests urls</p>-->
+<!--                    <textarea class="canceledRequestsUrls"></textarea>-->
+<!--                </div>-->
+<!--                &lt;!&ndash; canceledRequestsUrls &ndash;&gt;-->
+<!--                <div class="actionBlock">-->
+<!--                    <label>Enable</label>-->
+<!--                    <input type="checkbox" class="canceledRequestsEnable">-->
+<!--                </div>-->
+<!--            </div>-->
+        </div>
     </div>
-</div>
-<div class="action">
-    <button id="accept">Accept</button>
+    <div class="action-row">
+        <div class="action">
+            <button id="accept">Accept</button>
+        </div>
+    </div>
 </div>
 <script type="module" src="options.js"></script>
 </body>

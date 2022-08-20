@@ -1,0 +1,21 @@
+.action {
+	background-color: #b4e293;
+	padding: 15px;
+}
+
+.action-row {
+	display: flex;
+}
+
+.action-row + .action-row {
+	margin-top: 20px;
+}
+
+.action-group {
+	background-color: rgba(0,0,0, 0.1);
+	padding: 5px;
+}
+
+.action-group + .action-group {
+	margin-top: 10px;
+}
