@@ -9,8 +9,16 @@ export function throttle (fn: (...args: any) => any, time: number) {
   }
 }
 
-export function querySelector (selector: string, parent: Element | Document = document): Element {
-  const $element = parent.querySelector(selector);
+export function querySelector <E extends Element = Element>(selector: string, parent: Element | Document = document): E {
+  const $element = parent.querySelector<E>(selector);
+  if (!$element) {
+    throw Error(`${selector} not found`)
+  }
+  return $element;
+}
+
+export function getAttribute (selector: string, parent: Element): string {
+  const $element = parent.getAttribute(selector);
   if (!$element) {
     throw Error(`${selector} not found`)
   }

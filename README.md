@@ -62,9 +62,9 @@
   - [x] maybe add run lifecycle on onCreated event? (all ok, just add delay in test)
 - [ ] request canceling
   - [x] options ui (all controls)
-  - [ ] add new store and update
+  - [x] add new store and update
     - [x] get requests
-    - [ ] set requests on "accept" button
+    - [x] set requests on "accept" button
   - [ ] add new script
   - [ ] add script in lifecycle
   - [ ] tests
