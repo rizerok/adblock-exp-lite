@@ -9,7 +9,7 @@ export interface StoredTab {
 }
 
 export interface CanceledRequest {
-  id: string;
+  id: number;
   site: string;
   reqs: string[];
   enable: boolean;

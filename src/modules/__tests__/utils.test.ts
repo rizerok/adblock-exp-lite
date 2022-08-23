@@ -1,6 +1,6 @@
-import { throttle } from '../utils';
+import { throttle, randomInt } from '../utils';
 
-describe('utils', () => {
+describe('utils throttle', () => {
   test('must return a function', () => {
     const mockFn = () => {};
     expect(typeof throttle(mockFn, 100)).toBe('function');
@@ -29,3 +29,12 @@ describe('utils', () => {
   });
 });
 
+describe('utils randomInt', () => {
+  test('should return value with needed length', () => {
+    expect(String(randomInt(8)).length).toBe(8);
+    expect(String(randomInt(20)).length).toBe(20);
+    expect(String(randomInt(1)).length).toBe(1);
+    expect(() => randomInt(0)).toThrowError('arg must be 1 or more');
+    expect(() => randomInt(21)).toThrowError('arg must be 20 or less');
+  });
+});

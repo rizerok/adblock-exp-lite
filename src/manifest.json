@@ -13,6 +13,8 @@
   "permissions": [
     "webRequest",
     "declarativeNetRequest",
+    "declarativeNetRequestWithHostAccess",
+    "declarativeNetRequestFeedback",
     "storage",
     "activeTab",
     "scripting",

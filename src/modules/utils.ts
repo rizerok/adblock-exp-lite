@@ -24,3 +24,14 @@ export function getAttribute (selector: string, parent: Element): string {
   }
   return $element;
 }
+
+export const randomInt = (integerLength: number): number => {
+  if (integerLength < 1) {
+    throw Error('arg must be 1 or more');
+  }
+  if (integerLength > 20) {
+    throw Error('arg must be 20 or less');
+  }
+  const max = Math.floor(integerLength);
+  return Math.floor((Math.random() + 1) * Math.pow(10, max - 1));
+}

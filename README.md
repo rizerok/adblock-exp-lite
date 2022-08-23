@@ -65,9 +65,10 @@
   - [x] add new store and update
     - [x] get requests
     - [x] set requests on "accept" button
-  - [ ] add new script
-  - [ ] add script in lifecycle
-  - [ ] tests
+  - [x] add new script
+  - [x] ~~add script in lifecycle~~
+  - [x] tests
+  - [ ] refactor background-sw
   - [ ] e2e
 - [ ] iframe cleaner
   - [ ] options ui
@@ -76,3 +77,5 @@
   - [ ] add script in lifecycle
   - [ ] tests
   - [ ] e2e
+- [ ] import/export settings 
+- [ ] husky

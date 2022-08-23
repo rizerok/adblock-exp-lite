@@ -5,6 +5,8 @@ import * as config from './modules/config';
 import * as converters from './modules/converters';
 import { Log } from './modules/log';
 
+import './background-sw/canceling-requests';
+
 const log = new Log('background-sw');
 
 log.log('chrome', chrome);

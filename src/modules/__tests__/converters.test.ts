@@ -1,4 +1,4 @@
-import { tabToStoredTab } from '../converters';
+import { tabToStoredTab, cancelingReqIntIdToUiId, cancelingReqUiIdToIntId } from '../converters';
 
 const defaultTabMock: chrome.tabs.Tab = {
   active: true,
@@ -23,7 +23,7 @@ const defaultTabMock: chrome.tabs.Tab = {
   windowId: 3258,
 }
 
-describe('converters', () => {
+describe('tabToStoredTab converter', () => {
   let tabMock: chrome.tabs.Tab;
   beforeEach(() => {
     tabMock = {...defaultTabMock};
@@ -68,4 +68,23 @@ describe('converters', () => {
   });
 });
 
+describe('canceling requests converters', () => {
+  test('cancelingReqIntIdToUiId should convert', async () => {
+    expect(cancelingReqIntIdToUiId(12345678)).toBe('id12345678');
+  });
+  test('cancelingReqIntIdToUiId should be equal 8 symbols', async () => {
+    expect(() => cancelingReqIntIdToUiId(1)).toThrowError('id must be 8 symbols');
+    expect(() => cancelingReqIntIdToUiId(123456789)).toThrowError('id must be 8 symbols');
+  });
+});
+
+describe('canceling requests converters', () => {
+  test('cancelingReqUiIdToIntId should convert', async () => {
+    expect(cancelingReqUiIdToIntId('id12345678')).toBe(12345678);
+  });
+  test('cancelingReqUiIdToIntId should be equal 8 symbols', async () => {
+    expect(() => cancelingReqUiIdToIntId('id1')).toThrowError('id must be 8 symbols');
+    expect(() => cancelingReqUiIdToIntId('id123456789')).toThrowError('id must be 8 symbols');
+  });
+});
 

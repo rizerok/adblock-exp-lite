@@ -1,6 +1,8 @@
 import { querySelector, getAttribute } from '../modules/utils';
 import { Log } from '../modules/log';
 import * as store from '../modules/store';
+import { cancelingReqUiIdToIntId } from '../modules/converters';
+import { acceptChromeRequestsRules } from '../modules/core';
 
 const log = new Log('options/accept');
 
@@ -25,7 +27,7 @@ $acceptButton.addEventListener('click', async () => {
 
   const canceledRequests = Array.from($siteReqs).map(req => {
     return {
-      id: getAttribute('id', req),
+      id: cancelingReqUiIdToIntId(getAttribute('id', req)),
       site: querySelector<HTMLInputElement>('.canceledSitesUrl', req).value,
       reqs: querySelector<HTMLInputElement>('.canceledRequestsUrls', req).value.split(/\s/g).filter(site => site),
       enable: querySelector<HTMLInputElement>('.canceledRequestsEnable', req).checked
@@ -35,5 +37,6 @@ $acceptButton.addEventListener('click', async () => {
   log.log('canceledRequests', canceledRequests);
 
   await store.setCanceledRequests(canceledRequests);
+  await acceptChromeRequestsRules(canceledRequests);
   log.log('Accepted!!!');
 });

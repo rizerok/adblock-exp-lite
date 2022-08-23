@@ -32,3 +32,18 @@ export const tabToStoredTab = (tab: chrome.tabs.Tab | null): StoredTab  => {
     pendingUrl
   };
 };
+
+export const cancelingReqIntIdToUiId = (intId: number): string => {
+  if (String(intId).length !== 8) {
+    throw Error('id must be 8 symbols');
+  }
+  return `id${intId}`;
+}
+
+export const cancelingReqUiIdToIntId = (uiId: string): number => {
+  const intId = uiId.replace('id', '');
+  if (intId.length !== 8) {
+    throw Error('id must be 8 symbols');
+  }
+  return Number(intId);
+}

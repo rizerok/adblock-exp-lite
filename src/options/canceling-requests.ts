@@ -1,7 +1,8 @@
-import { querySelector } from '../modules/utils';
+import { querySelector, randomInt } from '../modules/utils';
 import { Log } from '../modules/log';
 import * as store from '../modules/store';
 import { CanceledRequest } from '../modules/store';
+import { cancelingReqIntIdToUiId } from '../modules/converters';
 
 const log = new Log('canceling requests');
 
@@ -12,7 +13,7 @@ const $cancelRequestAction = querySelector('.action', $cancelRequest);
 const addFilter = ({ site, reqs, enable, id }: CanceledRequest) => {
   const $actionGroup = document.createElement('div');
   $actionGroup.classList.add('action-group');
-  $actionGroup.setAttribute('id', `id${id}`);
+  $actionGroup.setAttribute('id', cancelingReqIntIdToUiId(id));
 
   const $actionBlocks = Array(4).fill(null).map(() => document.createElement('div'));
   $actionBlocks.forEach(($ab) => {
@@ -51,11 +52,8 @@ const addFilter = ({ site, reqs, enable, id }: CanceledRequest) => {
   $actionBlocks[2].appendChild($canceledRequestsEnableCheckbox);
 
   // delete button
-  async function deleteAction() {
+  function deleteAction() {
     $actionGroup.parentNode?.removeChild($actionGroup);
-    // const canceledReqs = await store.getCanceledRequests();
-    // const idx = canceledReqs.findIndex(cr => cr.id === id);
-    // canceledReqs.splice(idx, 1);
   }
   const $deleteButton = document.createElement('button');
   $deleteButton.textContent = 'Delete';
@@ -68,12 +66,12 @@ const addFilter = ({ site, reqs, enable, id }: CanceledRequest) => {
   $cancelRequestAction.appendChild($actionGroup);
 }
 
-const main = async () => {
+const drawFromStore = async () => {
   $addButton.addEventListener('click', () => addFilter({
     site: '',
     reqs: [],
     enable: false,
-    id: String(Math.random())
+    id: randomInt(8)
   }));
 
   const canceledRequests = await store.getCanceledRequests();
@@ -82,4 +80,4 @@ const main = async () => {
   canceledRequests.forEach(addFilter);
 };
 
-main();
+drawFromStore();
