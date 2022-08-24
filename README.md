@@ -68,9 +68,10 @@
   - [x] add new script
   - [x] ~~add script in lifecycle~~
   - [x] tests
-  - [ ] refactor background-sw
+  - [x] refactor background-sw
   - [ ] e2e
 - [ ] iframe cleaner
+  - [ ] start with tests and e2e tests(html -> e2e -> code) 
   - [ ] options ui
   - [ ] add new store and update
   - [ ] add new script
@@ -79,3 +80,4 @@
   - [ ] e2e
 - [ ] import/export settings 
 - [ ] husky
+- [ ] think about react for options.html
