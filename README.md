@@ -70,8 +70,16 @@
   - [x] tests
   - [x] refactor background-sw
   - [ ] e2e
+      - [x] start
+      - [x] "Add canceling" button
+      - [x] "Delete" button
+      - [x] add requests
+      - [ ] detect requests with puppeteer
+      - [ ] check block request
+      - [ ] check block requests with different fields
+      - [ ] try block requests with different domains and names
 - [ ] iframe cleaner
-  - [ ] start with tests and e2e tests(html -> e2e -> code) 
+  - [ ] start with tests and e2e tests(e2e doc -> html -> e2e -> code) 
   - [ ] options ui
   - [ ] add new store and update
   - [ ] add new script
