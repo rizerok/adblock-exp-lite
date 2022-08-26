@@ -11,11 +11,20 @@
 	margin-top: 20px;
 }
 
+.groupsContainer {
+	display: flex;
+	flex-wrap: wrap;
+}
+
 .action-group {
 	background-color: rgba(0,0,0, 0.1);
 	padding: 5px;
 }
 
-.action-group + .action-group {
+.action-group {
 	margin-top: 10px;
+}
+
+#cancelRequest .action-group {
+	margin-bottom: 10px;
 }

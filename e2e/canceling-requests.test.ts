@@ -19,8 +19,6 @@ describe('canceling requests', () => {
     await browser.close();
   });
   test('"Add canceling" button must add new canceling request block', async () => {
-    await page.goto(`file://${__dirname}/example-html/${HTML_FILE}`, { waitUntil: 'load' });
-
     const optionsPage = await browser.newPage();
     await optionsPage.goto(`chrome-extension://${EXTENSION_ID}/options.html`, { waitUntil: 'load' });
 
@@ -33,8 +31,6 @@ describe('canceling requests', () => {
   });
 
   test('"Delete" button must delete canceling request block', async () => {
-    await page.goto(`file://${__dirname}/example-html/${HTML_FILE}`, { waitUntil: 'load' });
-
     const optionsPage = await browser.newPage();
     await optionsPage.goto(`chrome-extension://${EXTENSION_ID}/options.html`, { waitUntil: 'load' });
 
@@ -96,7 +92,7 @@ describe('canceling requests', () => {
     expect(interceptor.getAllReqs().find(r => r.url === 'http://example.com/example.json')).toBe(undefined);
   });
 
-  test('if "canceled requests urls" textarea is empty - all request must be available', async () => {
+  test('if "canceled requests urls" textarea is empty - all request must be blocked', async () => {
     await page.close();
 
     const optionsPage = await browser.newPage();
@@ -124,8 +120,8 @@ describe('canceling requests', () => {
 
     await interceptor.waitLoadingReqs();
 
-    expect(interceptor.getAllReqs().length).toBe(2);
-    expect(!!interceptor.getAllReqs().find(r => r.url === 'http://example.com/example.json')).toBe(true);
+    expect(interceptor.getAllReqs().length).toBe(1);
+    expect(interceptor.getAllReqs().find(r => r.url === 'http://example.com/example.json')).toBe(undefined);
   });
 
   test('if "Enable" is not checked all request must be available', async () => {
@@ -213,8 +209,8 @@ describe('canceling requests', () => {
     await (new Promise((res) => setTimeout(res, waitRequestsDelay)));
     await interceptor.waitLoadingReqs();
 
-    expect(interceptor.getAllReqs().length).toBe(2);
-    expect(!!interceptor.getAllReqs().find(r => r.url === 'http://example.com/example.json')).toBe(true);
+    expect(interceptor.getAllReqs().length).toBe(1);
+    expect(interceptor.getAllReqs().find(r => r.url === 'http://example.com/example.json')).toBe(undefined);
     interceptor.clearRequests();
 
     const $deleteButton = (await getElementsByText(optionsPage, 'Delete', 'button'))[0];

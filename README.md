@@ -3,7 +3,6 @@
 ```json
 {
   "name": "adblock-exp-lite",
-  "private": true,
   "description": "Extension for remove fixed overlays and cancel requests",
   "version": "1.0",
   "manifest_version": 3,
@@ -17,13 +16,16 @@
   "permissions": [
     "webRequest",
     "declarativeNetRequest",
+    "declarativeNetRequestWithHostAccess",
+    "declarativeNetRequestFeedback",
     "storage",
     "activeTab",
     "scripting",
     "tabs"
   ],
   "host_permissions": [
-    "*://*/*"
+    "*://*/*",
+    "file://*/*"
   ],
   "options_page": "options.html"
 }
@@ -48,7 +50,7 @@
   - [x] test directories
   - [x] other tests
 - [x] bug with null
-- [ ] e2e puppeteer tests
+- [x] e2e puppeteer tests
   - [x] integrate with jest
   - [x] simple test (init)
   - [x] other tests (remove overlay)
@@ -86,6 +88,7 @@
   - [ ] add script in lifecycle
   - [ ] tests
   - [ ] e2e
+    - [x] start
 - [ ] import/export settings 
 - [ ] husky
 - [ ] think about react for options.html

@@ -8,8 +8,8 @@
     "build:prod": "node build.js production",
     "test": "jest src",
     "test:watch": "jest src --watch",
-    "test:e2e": "jest e2e",
-    "test:e2e:watch": "jest e2e --watch"
+    "test:e2e": "jest e2e --runInBand --no-cache",
+    "test:e2e:watch": "jest e2e --watch --runInBand --no-cache"
   },
   "repository": {
     "type": "git",

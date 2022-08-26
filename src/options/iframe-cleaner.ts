@@ -1,20 +1,23 @@
-import { querySelector, randomInt } from '../modules/utils';
-import { Log } from '../modules/log';
-import * as store from '../modules/store';
 import { CanceledRequest } from '../modules/store';
 import { cancelingReqIntIdToUiId } from '../modules/converters';
+import { querySelector, randomInt } from '../modules/utils';
+import * as store from '../modules/store';
 
-const log = new Log('canceling requests');
+const $iframeCleaner = querySelector('#iframeCleaner');
+const $addButton = querySelector('#iframeCleanerAddButton');
+const $iframeCleanerActionGroups = querySelector('.action .groupsContainer', $iframeCleaner);
 
-const $cancelRequest = querySelector('#cancelRequest');
-const $addButton = querySelector('#canceledRequestsAddButton');
-const $cancelRequestAction = querySelector('.action', $cancelRequest);
-const $cancelRequestActionGroups = querySelector('.action .groupsContainer', $cancelRequest);
+interface IframeBlock {
+  site: string;
+  iframeUrls: string[];
+  enable: boolean;
+  id: number;
+}
 
-const addFilter = ({ site, reqs, enable, id }: CanceledRequest) => {
+const addFilter = ({ site, iframeUrls, enable, id }: IframeBlock) => {
   const $actionGroup = document.createElement('div');
   $actionGroup.classList.add('action-group');
-  $actionGroup.setAttribute('id', cancelingReqIntIdToUiId(id));
+  // $actionGroup.setAttribute('id', cancelingReqIntIdToUiId(id));
 
   const $actionBlocks = Array(4).fill(null).map(() => document.createElement('div'));
   $actionBlocks.forEach(($ab) => {
@@ -25,7 +28,7 @@ const addFilter = ({ site, reqs, enable, id }: CanceledRequest) => {
   $titleSiteUrl.classList.add('actionBlockTitle');
   $titleSiteUrl.textContent = 'site url';
   const $canceledSitesUrlInput = document.createElement('input');
-  $canceledSitesUrlInput.classList.add('canceledSitesUrl');
+  $canceledSitesUrlInput.classList.add('iframesSitesUrl');
   $canceledSitesUrlInput.value = site;
 
   $actionBlocks[0].appendChild($titleSiteUrl);
@@ -33,10 +36,10 @@ const addFilter = ({ site, reqs, enable, id }: CanceledRequest) => {
 
   // second block
   const $canceledRequestUrls = document.createElement('p');
-  $canceledRequestUrls.textContent = 'canceled requests urls';
+  $canceledRequestUrls.textContent = 'iframes urls';
   const $requestTextarea = document.createElement('textarea');
-  $requestTextarea.classList.add('canceledRequestsUrls');
-  $requestTextarea.value = reqs.join('\n');
+  $requestTextarea.classList.add('iframesUrls');
+  $requestTextarea.value = iframeUrls.join('\n');
 
   $actionBlocks[1].appendChild($canceledRequestUrls);
   $actionBlocks[1].appendChild($requestTextarea);
@@ -46,7 +49,7 @@ const addFilter = ({ site, reqs, enable, id }: CanceledRequest) => {
   $cancelRequestEnableLabel.textContent = 'Enable';
   const $canceledRequestsEnableCheckbox = document.createElement('input');
   $canceledRequestsEnableCheckbox.setAttribute('type', 'checkbox');
-  $canceledRequestsEnableCheckbox.classList.add('canceledRequestsEnable');
+  $canceledRequestsEnableCheckbox.classList.add('iframeCleanerEnable');
   $canceledRequestsEnableCheckbox.checked = enable;
 
   $actionBlocks[2].appendChild($cancelRequestEnableLabel);
@@ -64,21 +67,21 @@ const addFilter = ({ site, reqs, enable, id }: CanceledRequest) => {
   $actionBlocks.forEach(($ab) => {
     $actionGroup.appendChild($ab);
   });
-  $cancelRequestActionGroups.appendChild($actionGroup);
+  $iframeCleanerActionGroups.appendChild($actionGroup);
 }
 
 const drawFromStore = async () => {
   $addButton.addEventListener('click', () => addFilter({
     site: '',
-    reqs: [],
+    iframeUrls: [],
     enable: false,
     id: randomInt(8)
   }));
 
-  const canceledRequests = await store.getCanceledRequests();
-  log.log('canceledRequests', canceledRequests);
-
-  canceledRequests.forEach(addFilter);
+  // const canceledRequests = await store.getCanceledRequests();
+  // log.log('canceledRequests', canceledRequests);
+  //
+  // canceledRequests.forEach(addFilter);
 };
 
 drawFromStore();
