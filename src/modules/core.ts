@@ -22,24 +22,28 @@ export async function acceptChromeRequestsRules (canceledReqs: CanceledRequest[]
 
   for (const cr of canceledReqs) {
     if (cr.enable) {
-      const RULE: chrome.declarativeNetRequest.Rule = {
+      const rule: chrome.declarativeNetRequest.Rule = {
         id: cr.id,
-        condition: {
-          initiatorDomains: [cr.site],
-          regexFilter: cr.reqs.join('|')
-        },
+        condition: {},
         action: {
           type: RuleActionType.BLOCK,
         },
       };
 
-      log.log('rule for add', RULE);
+      if (cr.site !== '') {
+        rule.condition.initiatorDomains = [cr.site];
+      }
+      if (cr.reqs.length) {
+        rule.condition.regexFilter =  cr.reqs.join('|');
+      }
+
+      log.log('rule for add', rule);
 
       await  chrome.declarativeNetRequest.updateDynamicRules({
-        addRules: [RULE],
+        addRules: [rule],
       });
 
-      log.log('initialized rule', RULE);
+      log.log('initialized rule', rule);
     }
   }
 }

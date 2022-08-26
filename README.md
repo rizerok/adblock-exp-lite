@@ -69,15 +69,15 @@
   - [x] ~~add script in lifecycle~~
   - [x] tests
   - [x] refactor background-sw
-  - [ ] e2e
+  - [x] e2e
       - [x] start
       - [x] "Add canceling" button
       - [x] "Delete" button
       - [x] add requests
-      - [ ] detect requests with puppeteer
-      - [ ] check block request
-      - [ ] check block requests with different fields
-      - [ ] try block requests with different domains and names
+      - [x] detect requests with puppeteer
+      - [x] check block request
+      - [x] check block requests with different fields
+      - [x] ~~try block requests with different domains and names~~ (only with different urlFilter)
 - [ ] iframe cleaner
   - [ ] start with tests and e2e tests(e2e doc -> html -> e2e -> code) 
   - [ ] options ui

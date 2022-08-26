@@ -1,7 +1,7 @@
 import { bootstrap, EXTENSION_ID } from './bootstrap';
 import { Browser, Page } from 'puppeteer';
 
-const HTML_FILE = 'site-with-overlay.html'
+const HTML_FILE = 'site-with-overlay.html';
 
 describe('remove overlay', () => {
   jest.setTimeout(60000);
@@ -30,9 +30,9 @@ describe('remove overlay', () => {
 
     await optionsPage.click('#removeFixedOverlaysCheckbox');
     await optionsPage.click('#accept');
-
-    await (new Promise((res) => setTimeout(res, 1000)));
+    await (new Promise((res) => setTimeout(res, 2000)));
     await page.bringToFront();
+    await (new Promise((res) => setTimeout(res, 2000)));
 
     await page.waitForSelector('[style*="fixed"]', { hidden: true });
 
@@ -105,11 +105,11 @@ describe('remove overlay', () => {
     await optionsPage.click('#accept');
 
     // wait for tab switch
-    await (new Promise((res) => setTimeout(res, 500)));
+    await (new Promise((res) => setTimeout(res, 2000)));
     await page.bringToFront();
+    await (new Promise((res) => setTimeout(res, 2000)));
 
     // wait and check overlays deleting
-    await page.waitForSelector('[style*="fixed"]', { hidden: true });
     expect(await page.$('[style*="fixed"]')).toBe(null);
 
     const addNewOverlay = () => {
@@ -151,11 +151,11 @@ describe('remove overlay', () => {
     await optionsPage.click('#accept');
 
     // wait for tab switch
-    await (new Promise((res) => setTimeout(res, 1000)));
+    await (new Promise((res) => setTimeout(res, 2000)));
     await page.bringToFront();
+    await (new Promise((res) => setTimeout(res, 2000)));
 
     // wait and check overlays deleting
-    await page.waitForSelector('[style*="fixed"]', { hidden: true });
     expect(await page.$('[style*="fixed"]')).toBe(null);
 
     // create tab2
@@ -168,8 +168,9 @@ describe('remove overlay', () => {
     expect(await page2.$('[style*="fixed"]')).toBe(null);
 
     // back on tab1
-    await (new Promise((res) => setTimeout(res, 1000)));
+    await (new Promise((res) => setTimeout(res, 2000)));
     await page.bringToFront();
+    await (new Promise((res) => setTimeout(res, 2000)));
     // wait and check overlays deleting on tab2
     expect(await page.$('[style*="fixed"]')).toBe(null);
   });

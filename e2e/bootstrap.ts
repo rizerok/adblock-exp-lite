@@ -10,6 +10,7 @@ export const bootstrap = async (appUr?: string) => {
     args: [
       `--disable-extensions-except=${EXTENSION_PATH}`,
       `--load-extension=${EXTENSION_PATH}`,
+      '--enable-features=NetworkService,NetworkServiceInProcess',
     ],
   });
 
