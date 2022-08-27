@@ -15,12 +15,20 @@ export interface CanceledRequest {
   enable: boolean;
 }
 
+export interface IframeDeleteBlock {
+  id: number;
+  site: string;
+  iframeUrls: string[];
+  enable: boolean;
+}
+
 interface Store {
   activeTab: StoredTab;
   intervalId: ReturnType<typeof setInterval>;
   acceptedSites: string[];
   enabled: boolean;
   canceledRequests: CanceledRequest[];
+  iframeDeleteBlocks: IframeDeleteBlock[];
 }
 
 chrome.storage.onChanged.addListener((changes) => {
@@ -53,3 +61,15 @@ export const getCanceledRequests = async (): Promise<Store['canceledRequests']> 
   }
   return canceledRequests;
 };
+
+export const setIframeDeleteBlocks = async (newCanceledRequest: Store['iframeDeleteBlocks']) => {
+  await chrome.storage.sync.set({ iframeDeleteBlocks: newCanceledRequest });
+}
+export const getIframeDeleteBlocks = async (): Promise<Store['iframeDeleteBlocks']> => {
+  const iframeDeleteBlocks = (await chrome.storage.sync.get('iframeDeleteBlocks')).iframeDeleteBlocks;
+  if (!iframeDeleteBlocks) {
+    return [];
+  }
+  return iframeDeleteBlocks;
+};
+

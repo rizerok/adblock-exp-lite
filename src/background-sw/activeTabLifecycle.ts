@@ -1,30 +1,29 @@
 import { Log } from '../modules/log';
 import * as store from '../modules/store';
 import * as converters from '../modules/converters';
-import * as core from '../modules/core';
 import * as config from '../modules/config';
 import * as utils from '../modules/utils';
+import { removeAllIframes, removeFixedOverlays } from '../modules/core';
+import { StoredTab } from '../modules/store';
 // remove fixed overlays
-const log = new Log('background-sw rfo');
+const log = new Log('active tab lifecycle');
 
 chrome.runtime.onInstalled.addListener(async () => {
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   await store.setCurrentTab(converters.tabToStoredTab(tab));
 });
 
-const executeScriptOnActiveTab = (tabId: number) => {
+const executeScriptOnActiveTab = (tab: StoredTab) => {
   log.log('executeScriptOnActiveTab');
   const intervalId = setInterval(() => {
     log.log('inside setInterval');
-    chrome.scripting.executeScript({
-      target: { tabId },
-      func: core.removeAllFixedOverlays,
-    });
+    removeFixedOverlays(tab);
+    removeAllIframes(tab);
   }, config.executionScriptIntervalTime);
   store.setIntervalId(intervalId);
   log.log('+intervalId', intervalId);
 };
-const executeScriptOnDeActiveTab = async () => {
+const executeScriptOnDeActiveTab = async (tab: StoredTab) => {
   log.log('executeScriptOnDeActiveTab');
   const intervalId = await store.getIntervalId();
   log.log('-intervalId', intervalId);
@@ -32,11 +31,6 @@ const executeScriptOnDeActiveTab = async () => {
 };
 
 const checkChromeDomains = (url: string) => config.chromeDomains.every(chd => url.indexOf(chd) === -1);
-
-const checkAcceptedSites = async (url: string) => {
-  const acceptedSites = await store.getAcceptedSites();
-  return acceptedSites.some(sitesUrl => url.includes(sitesUrl));
-};
 
 const updateTabLifecycle = async () => {
   log.log('updateTabLifecycle');
@@ -48,12 +42,12 @@ const updateTabLifecycle = async () => {
     const oldStoredTab = await store.getCurrentTab();
     log.logCloneObject('oldStoredTab', oldStoredTab);
     // old tab
-    if (checkChromeDomains(oldStoredTab.url) && await checkAcceptedSites(oldStoredTab.url)) {
-      await executeScriptOnDeActiveTab();
+    if (checkChromeDomains(oldStoredTab.url)) {
+      await executeScriptOnDeActiveTab(oldStoredTab);
     }
     log.log('tab', tab);
-    if (checkChromeDomains(newStoredTab.url) && await checkAcceptedSites(newStoredTab.url)) {
-      await executeScriptOnActiveTab(newStoredTab.id);
+    if (checkChromeDomains(newStoredTab.url)) {
+      await executeScriptOnActiveTab(newStoredTab);
     }
     log.logCloneObject(tab);
     await store.setCurrentTab(newStoredTab);
@@ -64,9 +58,7 @@ const updateTabLifecycle = async () => {
 const throttledUpdateLifeCycle = utils.throttle(updateTabLifecycle, config.throttledUpdateLifeCycleTime);
 
 chrome.tabs.onActivated.addListener(async () => {
-  if (await store.getEnabled()) {
-    await updateTabLifecycle();
-  }
+  await updateTabLifecycle();
 });
 chrome.tabs.onCreated.addListener(() => {
   log.log('onCreatedTab');

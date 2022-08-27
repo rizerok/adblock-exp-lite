@@ -1,7 +1,10 @@
-import { CanceledRequest } from '../modules/store';
-import { cancelingReqIntIdToUiId } from '../modules/converters';
 import { querySelector, randomInt } from '../modules/utils';
 import * as store from '../modules/store';
+import { cancelingReqIntIdToUiId } from '../modules/converters';
+import { Log } from '../modules/log';
+import { getIframeDeleteBlocks } from '../modules/store';
+
+const log = new Log('iframe cleaner');
 
 const $iframeCleaner = querySelector('#iframeCleaner');
 const $addButton = querySelector('#iframeCleanerAddButton');
@@ -17,7 +20,8 @@ interface IframeBlock {
 const addFilter = ({ site, iframeUrls, enable, id }: IframeBlock) => {
   const $actionGroup = document.createElement('div');
   $actionGroup.classList.add('action-group');
-  // $actionGroup.setAttribute('id', cancelingReqIntIdToUiId(id));
+  // TODO RENAME CONVERTER
+  $actionGroup.setAttribute('id', cancelingReqIntIdToUiId(id));
 
   const $actionBlocks = Array(4).fill(null).map(() => document.createElement('div'));
   $actionBlocks.forEach(($ab) => {
@@ -78,10 +82,10 @@ const drawFromStore = async () => {
     id: randomInt(8)
   }));
 
-  // const canceledRequests = await store.getCanceledRequests();
-  // log.log('canceledRequests', canceledRequests);
-  //
-  // canceledRequests.forEach(addFilter);
+  const iframesBlocks = await store.getIframeDeleteBlocks();
+  log.log('canceledRequests', iframesBlocks);
+
+  iframesBlocks.forEach(addFilter);
 };
 
 drawFromStore();

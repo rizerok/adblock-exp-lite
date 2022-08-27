@@ -11,6 +11,7 @@ const $acceptButton = querySelector('#accept');
 const $sitesTextArea = querySelector<HTMLInputElement>('#removeFixedOverlaysTextarea');
 const $removeFixedOverlaysCheckbox = querySelector<HTMLInputElement>('#removeFixedOverlaysCheckbox');
 const $cancelRequest = querySelector('#cancelRequest');
+const $iframeCleaner = querySelector('#iframeCleaner');
 
 $acceptButton.addEventListener('click', async () => {
   log.log('$acceptButton');
@@ -25,6 +26,9 @@ $acceptButton.addEventListener('click', async () => {
   const $siteReqs = $cancelRequest.querySelectorAll('.action-group[id^="id"]');
   log.log('$siteReqs', $siteReqs);
 
+  const $iframesForDelete = $iframeCleaner.querySelectorAll('.action-group[id^="id"]');
+  log.log('$siteReqs', $siteReqs);
+
   const canceledRequests = Array.from($siteReqs).map(req => {
     return {
       id: cancelingReqUiIdToIntId(getAttribute('id', req)),
@@ -34,9 +38,21 @@ $acceptButton.addEventListener('click', async () => {
     };
   });
 
+  const iframesForDelete = Array.from($iframesForDelete).map(iframe => {
+    return {
+      // TODO rename converter
+      id: cancelingReqUiIdToIntId(getAttribute('id', iframe)),
+      site: querySelector<HTMLInputElement>('.iframesSitesUrl', iframe).value,
+      iframeUrls: querySelector<HTMLInputElement>('.iframesUrls', iframe).value.split(/\s/g).filter(site => site),
+      enable: querySelector<HTMLInputElement>('.iframeCleanerEnable', iframe).checked
+    };
+  });
+
   log.log('canceledRequests', canceledRequests);
+  log.log('iframesForDelete', iframesForDelete);
 
   await store.setCanceledRequests(canceledRequests);
   await acceptChromeRequestsRules(canceledRequests);
+  await store.setIframeDeleteBlocks(iframesForDelete);
   log.log('Accepted!!!');
 });

@@ -80,15 +80,17 @@
       - [x] check block request
       - [x] check block requests with different fields
       - [x] ~~try block requests with different domains and names~~ (only with different urlFilter)
-- [ ] iframe cleaner
-  - [ ] start with tests and e2e tests(e2e doc -> html -> e2e -> code) 
-  - [ ] options ui
-  - [ ] add new store and update
-  - [ ] add new script
-  - [ ] add script in lifecycle
-  - [ ] tests
-  - [ ] e2e
+- [x] iframe cleaner
+  - [x] start with tests and e2e tests(e2e doc -> html -> e2e -> code) 
+  - [x] options ui
+  - [x] add new store and update
+  - [x] add new script
+  - [x] add script in lifecycle
+  - [x] tests
+  - [x] e2e
     - [x] start
+    - [x] finish
+- [ ] check code todos
 - [ ] import/export settings 
 - [ ] husky
 - [ ] think about react for options.html
