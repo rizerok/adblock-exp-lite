@@ -1,5 +1,10 @@
 # adblock-exp-lite
 
+zero dependencies
+
+## Motivation
+Interest in creating a simplified AdBlock
+
 ```json
 {
   "name": "adblock-exp-lite",
@@ -31,6 +36,43 @@
 }
 
 ```
+
+## Install
+```bash 
+git clone git@github.com:rizerok/adblock-exp-lite.git
+npm i
+```
+
+## Build
+```bash
+npm run build:prod
+# extension in /dist
+```
+
+## Usage
+1. Install nodeJS, npm and git
+2. Install
+3. Build prod
+4. Open Chrome
+5. Go to chrome://extensions/
+6. Turn on Dev mode
+7. Load extension (choose "/dist" dir)
+8. Change options in extension and use
+
+
+## Scripts
+
+```json
+{
+    "build:dev": "node build.js development",
+    "build:prod": "node build.js production",
+    "test": "jest src",
+    "test:watch": "jest src --watch",
+    "test:e2e": "jest e2e --runInBand --no-cache",
+    "test:e2e:watch": "jest e2e --watch --runInBand --no-cache"
+  }
+```
+
 
 ## Todos
 - [x] log
@@ -96,6 +138,6 @@
   - [x] export
   - [x] test for import
   - [ ] test for export
-- [ ] husky
+- [x] husky
 - [ ] think about react for options.html
 - [ ] build watcher
