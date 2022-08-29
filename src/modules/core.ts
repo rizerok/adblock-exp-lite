@@ -76,8 +76,6 @@ export function removeAllIframesBrowser (iframesSelectors: string[]) {
 
 export async function removeAllIframes (tab: StoredTab) {
   const iframes = await store.getIframeDeleteBlocks();
-  console.log('iframes', iframes);
-  console.log('tab.url', tab.url);
   const currentIframeBlock = iframes.find(iframe => iframe.site && tab.url.includes(iframe.site));
   if (currentIframeBlock && currentIframeBlock.enable) {
     chrome.scripting.executeScript({

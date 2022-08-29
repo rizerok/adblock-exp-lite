@@ -62,7 +62,7 @@
     - [x] check removing on new tab
   - [x] split unit and e2e tests
   - [x] maybe add run lifecycle on onCreated event? (all ok, just add delay in test)
-- [ ] request canceling
+- [x] request canceling
   - [x] options ui (all controls)
   - [x] add new store and update
     - [x] get requests

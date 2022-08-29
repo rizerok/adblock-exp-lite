@@ -37,7 +37,7 @@ const updateTabLifecycle = async () => {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   log.log('tab', tab);
   // new tab [here sometimes we get a null, why tab is null?], just continue
-  if (tab !== null) {
+  if (tab) {
     const newStoredTab = converters.tabToStoredTab(tab);
     const oldStoredTab = await store.getCurrentTab();
     log.logCloneObject('oldStoredTab', oldStoredTab);

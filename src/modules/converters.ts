@@ -5,6 +5,7 @@ const log = new Log('converters');
 
 export const tabToStoredTab = (tab: chrome.tabs.Tab | null): StoredTab  => {
   if (!tab) {
+    console.log(new Error().stack)
     throw Error('tab must be exist');
   }
 
