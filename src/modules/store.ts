@@ -31,6 +31,15 @@ interface Store {
   iframeDeleteBlocks: IframeDeleteBlock[];
 }
 
+const storeKeys: (keyof Store)[] = [
+  'activeTab',
+  'intervalId',
+  'acceptedSites',
+  'enabled',
+  'canceledRequests',
+  'iframeDeleteBlocks'
+];
+
 chrome.storage.onChanged.addListener((changes) => {
   log.log('changes', changes);
 });
@@ -73,3 +82,58 @@ export const getIframeDeleteBlocks = async (): Promise<Store['iframeDeleteBlocks
   return iframeDeleteBlocks;
 };
 
+export const exportSettings = async () => {
+  const json: Partial<Store> = {};
+  for (const key of storeKeys) {
+    if (!['activeTab', 'intervalId'].includes(key)) {
+      json[key] = (await chrome.storage.sync.get(key))[key];
+    }
+  }
+  const jsonString = JSON.stringify(json, null, 2);
+
+  const a = document.createElement("a");
+  const file = new Blob([jsonString], { type: 'text' });
+  const url = URL.createObjectURL(file);
+  a.href = url;
+  a.download = 'addblock-exp-lite.settings.json';
+  a.click();
+  setTimeout(function() {
+    window.URL.revokeObjectURL(url);
+  }, 0);
+}
+
+function fileToString(file: File) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsText(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
+}
+
+const validateJSONSettings = (settings: any) => {
+  for (const key in settings) {
+    if (!storeKeys.includes(key as (keyof Store))) {
+      return false;
+    }
+  }
+  return true;
+}
+
+export async function importSettings(this: HTMLInputElement) {
+  const fileList = this.files;
+  if (fileList && fileList[0]) {
+    const fileString = await fileToString(fileList[0]);
+    if (typeof fileString === 'string') {
+      const store = JSON.parse(fileString);
+      if (validateJSONSettings(store)) {
+        for (const key in store) {
+          await chrome.storage.sync.set({ [key]: store[key] });
+        }
+        location.reload();
+      } else {
+        throw Error('incorrect settings file');
+      }
+    }
+  }
+}

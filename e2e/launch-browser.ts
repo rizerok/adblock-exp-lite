@@ -1,8 +1,10 @@
 import { bootstrap, EXTENSION_ID } from './bootstrap';
 import { TargetInterceptor } from './utils/target-interceptor';
+import { ElementHandle } from 'puppeteer';
 /* Script for test puppeteer cases */
 
 const HTML_FILE = 'site-with-evil-reqs.html'
+const EXAMPLE_JSON_FILE = 'addblock-exp-lite.settings.json'
 
 const main = async () => {
   const { browser, page } = await bootstrap();
@@ -37,9 +39,12 @@ const main = async () => {
 
   await page.close();
 
-  // const optionsPage = await browser.newPage();
-  // await optionsPage.goto(`chrome-extension://${EXTENSION_ID}/options.html`, { waitUntil: 'load' });
-  //
+  const optionsPage = await browser.newPage();
+  await optionsPage.goto(`chrome-extension://${EXTENSION_ID}/options.html`, { waitUntil: 'load' });
+  await optionsPage.waitForSelector('input[type="file"]');
+  const fileInput = await optionsPage.$('input[type="file"]') as ElementHandle<HTMLInputElement>;
+  await fileInput.uploadFile(`${__dirname}/example-json/${EXAMPLE_JSON_FILE}`);
+
   // await optionsPage?.click('#canceledRequestsAddButton');
   //
   // const $canceledSitesUrlInput =  await optionsPage.$('.action-group .canceledSitesUrl')
@@ -54,21 +59,34 @@ const main = async () => {
   // const $acceptButton =  await optionsPage.$('#accept');
   // await $acceptButton?.click();
 
-  const interceptor = new TargetInterceptor({
-    browser,
-    targetTypes: ['page'],
-    resourceTypesExcludeFilter: ['Other']
-  });
-  interceptor.run();
 
-  const newPage = await browser.newPage();
-  await newPage.goto(`file://${__dirname}/example-html/${HTML_FILE}`, { waitUntil: 'load' });
 
-  await (new Promise((res) => setTimeout(res, 3000)));
 
-  await interceptor.waitLoadingReqs();
 
-  console.log('aaa', interceptor.getAllReqs());
+
+
+
+  // const interceptor = new TargetInterceptor({
+  //   browser,
+  //   targetTypes: ['page'],
+  //   resourceTypesExcludeFilter: ['Other']
+  // });
+  // interceptor.run();
+  //
+  // const newPage = await browser.newPage();
+  // await newPage.goto(`file://${__dirname}/example-html/${HTML_FILE}`, { waitUntil: 'load' });
+  //
+  // await (new Promise((res) => setTimeout(res, 3000)));
+  //
+  // await interceptor.waitLoadingReqs();
+  //
+  // console.log('aaa', interceptor.getAllReqs());
+
+
+
+
+
+
 
   // await page.goto(`file://${__dirname}/example-html/${HTML_FILE}`, { waitUntil: 'load' });
 

@@ -1,0 +1,43 @@
+{
+  "acceptedSites": [
+    "southpark.cc-fan.tv",
+    "lordfilm"
+  ],
+  "enabled": true,
+  "canceledRequests": [
+    {
+      "enable": true,
+      "id": 12207207,
+      "reqs": [
+        "vak345",
+        "yandex",
+        "yastatic.net",
+        "acint.net",
+        "sape.ru"
+      ],
+      "site": "southpark.cc-fan.tv"
+    },
+    {
+      "enable": false,
+      "id": 17368420,
+      "reqs": [
+        "azw.net",
+        "gstatic",
+        "yandex",
+        "jazw.net",
+        "yadro.ru"
+      ],
+      "site": "354so.filmly-hd.one"
+    }
+  ],
+  "iframeDeleteBlocks": [
+    {
+      "enable": true,
+      "id": 18562044,
+      "iframeUrls": [
+        "frame1"
+      ],
+      "site": "site-with-iframe.html"
+    }
+  ]
+}

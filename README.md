@@ -91,6 +91,11 @@
     - [x] start
     - [x] finish
 - [ ] check code todos
-- [ ] import/export settings 
+- [ ] import/export settings
+  - [x] import
+  - [x] export
+  - [x] test for import
+  - [ ] test for export
 - [ ] husky
 - [ ] think about react for options.html
+- [ ] build watcher

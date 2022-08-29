@@ -28,3 +28,7 @@
 #cancelRequest .action-group {
 	margin-bottom: 10px;
 }
+
+input[type="file"] {
+	display: none;
+}
