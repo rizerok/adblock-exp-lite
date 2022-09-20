@@ -139,5 +139,8 @@ npm run build:prod
   - [x] test for import
   - [ ] test for export
 - [x] husky
+  - [ ] add e2e to commit
 - [ ] think about react for options.html
 - [ ] build watcher
+- [ ] add opportunity block requests by partial site domain
+- [ ] add opportunity remove any tags
